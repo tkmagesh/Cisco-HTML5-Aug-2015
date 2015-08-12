@@ -6,9 +6,16 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style-online.css">
     <script src="taskManager.js"></script>
+    <script>
+    applicationCache.addEventListener("updateready", function(){
+        var response = confirm("A new version of the app is available. Do you want to use it?");
+        if (response)
+            window.location.reload(); 
+    });
+    </script>
 </head>
 <body>
-    <h1>Task Manager</h1>
+    <h1>Task Manager - v1.1</h1>
     <div class="content">
         <label for="">Task :</label>
         <input type="text" name="" id="txtTask">
