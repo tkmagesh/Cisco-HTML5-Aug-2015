@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Local Storage</title>
+    <script>
+    /*
+    window.localStorage
+        - key/value store
+        - both key and value should be strings
+        - 10 MB per origin
+        - Same origin policy
+        
+        - api
+            setItem(key,value)
+            getItem(key) //=> value
+            removeItem(key)
+            key(index) // => key at index
+            clear()
+            length 
+    
+    */
+    </script>
+    <style>
+        .completed {
+            color : red;
+            text-decoration: line-through;
+            font-style: italic;
+            font-weight: bold;
+        }
+        li{
+            cursor: pointer;
+        }
+    </style>
+    <script>
+    (function(){
+        window.addEventListener("DOMContentLoaded", init);
+        
+        function init(){
+            var btnAddTask = document.getElementById("btnAddTask");
+            btnAddTask.addEventListener("click", onBtnAddTaskClick);
+            
+            var btnRemoveCompleted = document.getElementById("btnRemoveCompleted");
+            btnRemoveCompleted.addEventListener('click', onBtnRemoveCompletedClick);
+        }
+        
+        function onBtnAddTaskClick(){
+            window.newTaskName = document.getElementById("txtTask").value;
+            var newTask = document.createElement("li");
+            newTask.innerHTML = newTaskName;
+            newTask.addEventListener("click", onTaskItemClick);
+            document.getElementById("olTaskList").appendChild(newTask);
+        }
+        
+        function onTaskItemClick(){
+            this.classList.toggle("completed");
+        }
+        
+        function onBtnRemoveCompletedClick(){
+            var taskItems = document.getElementById("olTaskList").children;
+            for(var i=taskItems.length-1; i>=0; i--){
+                if (taskItems[i].classList.contains("completed")){
+                    taskItems[i].removeEventListener("click", onTaskItemClick);
+                    taskItems[i].remove();
+                }
+            }
+        }
+        
+    })();
+    </script>
+</head>
+<body>
+    <h1>Task Manager</h1>
+    <div class="content">
+        <label for="">Task :</label>
+        <input type="text" name="" id="txtTask">
+        <input type="button" value="Add Task" id="btnAddTask">
+        <input type="button" value="Remove Completed" id="btnRemoveCompleted">
+        <ol id="olTaskList">
+            
+        </ol>
+    </div>
+</body>
+</html>
