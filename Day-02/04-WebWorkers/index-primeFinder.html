@@ -3,10 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <script>
+    (function(){
+        window.addEventListener("DOMContentLoaded", init);
+        var worker = null;
+
+        function init(){
+
+            worker = new Worker("primeFinder.js");
+            worker.addEventListener("message", onPrimeFinderMessage);
+
+            var btnFindPrimes = document.getElementById("btnFindPrimes");
+            btnFindPrimes.addEventListener("click", onBtnFindPrimesClick);
+        }
+
+        function onBtnFindPrimesClick(){
+            var start = parseInt(document.getElementById("txtStart").value,10),
+                end = parseInt(document.getElementById("txtEnd").value, 10);
+            var message = {
+                start: start,
+                end : end,
+                type : "findPrimes"
+            };
+            worker.postMessage(message)
+        }
+
+        function onPrimeFinderMessage(evtArg){
+            var message = evtArg.data;
+            //handle incoming message
+            if (message.type === "done"){
+                displayMessage(message.primeCount + " prime numbers found!");
+            } else {
+                console.log("invalid message ", message);
+            }
+        }
+
+        function displayMessage(msg){
+            document.getElementById("divMessages").innerHTML += msg + "<br/>";
+        }
+
+
+    })();
+
+    </script>
 </head>
 <body>
     <label for="">Start :</label>
-    <input type="text" name="" id="">
+    <input type="text" name="" id="txtStart">
     <txtStart></txtStart>
     <label for="">End :</label>
     <input type="text" name="" id="txtEnd">
