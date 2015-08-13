@@ -5,13 +5,14 @@
     <title>Notifications</title>
     <script>
     window.addEventListener("DOMContentLoaded", function(){
-        document.getElementById("btnShowNotification").addEventListener("click", function(){
-            Notification.requestPermission(function(){
-                var n = new Notification("some title", {
-                   body : "some message for demonstrating notifcation",
-                   icon : "noti-icon.png"
-                })
-            });
+        document.getElementById("btnShowNotification")
+            .addEventListener("click", function(){
+                Notification.requestPermission(function(){
+                    var n = new Notification("some title", {
+                       body : "some message for demonstrating notifcation",
+                       icon : "noti-icon.png"
+                    })
+                });
         });
     });
     </script>
